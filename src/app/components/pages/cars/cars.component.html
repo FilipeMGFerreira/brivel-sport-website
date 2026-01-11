@@ -1,0 +1,20 @@
+<div class="cars">
+  <section class="cars-header">
+    <h1>Nossa Frota</h1>
+    <p>Honda Civic TypeR preparados para competição</p>
+  </section>
+
+  <section class="cars-gallery">
+    @for (car of cars; track car.id) {
+      <div class="car-card">
+        <div class="car-image">
+          <img [src]="car.image" [alt]="car.name" />
+        </div>
+        <div class="car-content">
+          <h3>{{ car.name }}</h3>
+          <p>{{ car.description }}</p>
+        </div>
+      </div>
+    }
+  </section>
+</div>
