@@ -1,0 +1,54 @@
+<div class="home">
+  <section class="hero">
+    <div class="hero-carousel">
+      @for (image of heroImages; track image; let i = $index) {
+        <div class="hero-slide" [class.active]="i === currentHeroIndex">
+          <img [src]="image" [alt]="'Imagem ' + (i + 1)" />
+        </div>
+      }
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-logo">
+        <img src="assets/logos/white_logo_bs_grande.png" alt="Brivel Sport" />
+      </div>
+      <p class="tagline">Assistência e Preparação para Motoresport</p>
+      <p class="intro">
+        Especializados em assistência e preparação para competições de motoresport. 
+        Oferecemos serviços completos de suporte em pista, aluguel de carros de competição 
+        e preparação técnica para garantir o melhor desempenho.
+      </p>
+      <a routerLink="/contact" class="cta-button">Entre em Contato</a>
+    </div>
+    <div class="hero-indicators">
+      @for (image of heroImages; track image; let i = $index) {
+        <button 
+          class="hero-indicator" 
+          [class.active]="i === currentHeroIndex"
+          (click)="goToHeroSlide(i)"
+          [attr.aria-label]="'Ir para slide ' + (i + 1)"
+        ></button>
+      }
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="features-container">
+      <div class="feature-card">
+        <div class="feature-icon">🏁</div>
+        <h3>Experiência em Pista</h3>
+        <p>Suporte completo durante competições e eventos</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚗</div>
+        <h3>Frota de Competição</h3>
+        <p>Carros preparados e prontos para corridas</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h3>Preparação Técnica</h3>
+        <p>Setup, manutenção e otimização de performance</p>
+      </div>
+    </div>
+  </section>
+</div>
