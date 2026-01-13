@@ -1,39 +1,105 @@
-<nav class="navbar">
-  <div class="navbar-container">
-    <a routerLink="/" class="navbar-logo" (click)="closeMenu()">
-      <img src="assets/logos/white_logo_bs_grande.png" alt="Brivel Sport" />
+<nav class="sticky top-0 z-[1000] bg-bg-dark/95 backdrop-blur-lg border-b border-accent/30 relative shadow-lg">
+  <div class="max-w-[1200px] mx-auto px-6 py-3 flex justify-between items-center relative">
+    <a (click)="scrollToSection('inicio')" class="flex items-center no-underline cursor-pointer p-0 transition-transform duration-300 hover:scale-105">
+      <img src="./assets/logos/white_logo_bs_grande.png" alt="Brivel Sport" class="h-[60px] w-auto md:h-[70px] p-4" />
     </a>
     
     <button 
-      class="navbar-toggle" 
+      class="md:hidden flex flex-col bg-transparent border-0 cursor-pointer p-2 gap-1.5 transition-all duration-300 hover:gap-2"
       (click)="toggleMenu()"
       [attr.aria-expanded]="isMenuOpen"
       aria-label="Toggle menu"
     >
-      <span></span>
-      <span></span>
-      <span></span>
+      <span class="w-[28px] h-[2.5px] bg-white transition-all duration-300 rounded-full" 
+            [class.rotate-45]="isMenuOpen"
+            [class.translate-y-2]="isMenuOpen"></span>
+      <span class="w-[28px] h-[2.5px] bg-white transition-all duration-300 rounded-full"
+            [class.opacity-0]="isMenuOpen"></span>
+      <span class="w-[28px] h-[2.5px] bg-white transition-all duration-300 rounded-full"
+            [class.-rotate-45]="isMenuOpen"
+            [class.-translate-y-2]="isMenuOpen"></span>
     </button>
 
-    <ul class="navbar-menu" [class.active]="isMenuOpen">
+    <ul class="hidden md:flex list-none m-0 p-0 gap-10 items-center">
       <li>
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">
-          Início
+        <a (click)="scrollToSection('inicio')" 
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 relative py-2 px-1 hover:text-accent cursor-pointer group">
+          <span class="relative inline-block">
+            INÍCIO
+            <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+          </span>
         </a>
       </li>
       <li>
-        <a routerLink="/services" routerLinkActive="active" (click)="closeMenu()">
-          Serviços
+        <a (click)="scrollToSection('servicos')" 
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 relative py-2 px-1 hover:text-accent cursor-pointer group">
+          <span class="relative inline-block">
+            SERVIÇOS
+            <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+          </span>
         </a>
       </li>
       <li>
-        <a routerLink="/cars" routerLinkActive="active" (click)="closeMenu()">
-          Carros
+        <a (click)="scrollToSection('carros')" 
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 relative py-2 px-1 hover:text-accent cursor-pointer group">
+          <span class="relative inline-block">
+            CARROS
+            <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+          </span>
         </a>
       </li>
       <li>
-        <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">
-          Contato
+        <a (click)="scrollToSection('builds')" 
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 relative py-2 px-1 hover:text-accent cursor-pointer group">
+          <span class="relative inline-block">
+            BUILDS
+            <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a (click)="scrollToSection('contato')" 
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 relative py-2 px-1 hover:text-accent cursor-pointer group">
+          <span class="relative inline-block">
+            CONTATO
+            <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile Menu -->
+    <ul class="md:hidden absolute top-full left-0 right-0 bg-bg-dark/98 backdrop-blur-lg flex-col py-2 gap-0 overflow-hidden transition-all duration-300 border-t border-accent/30 shadow-lg list-none m-0 p-0" 
+        [class.max-h-[300px]]="isMenuOpen"
+        [class.max-h-0]="!isMenuOpen">
+      <li class="w-full">
+        <a (click)="scrollToSection('inicio')"
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 block px-8 py-4 border-b border-accent/20 hover:text-accent hover:bg-accent/5 cursor-pointer">
+          INÍCIO
+        </a>
+      </li>
+      <li class="w-full">
+        <a (click)="scrollToSection('servicos')"
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 block px-8 py-4 border-b border-accent/20 hover:text-accent hover:bg-accent/5 cursor-pointer">
+          SERVIÇOS
+        </a>
+      </li>
+      <li class="w-full">
+        <a (click)="scrollToSection('carros')"
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 block px-8 py-4 border-b border-accent/20 hover:text-accent hover:bg-accent/5 cursor-pointer">
+          CARROS
+        </a>
+      </li>
+      <li class="w-full">
+        <a (click)="scrollToSection('builds')"
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 block px-8 py-4 border-b border-accent/20 hover:text-accent hover:bg-accent/5 cursor-pointer">
+          BUILDS
+        </a>
+      </li>
+      <li class="w-full">
+        <a (click)="scrollToSection('contato')"
+           class="text-white/90 no-underline font-semibold text-sm uppercase tracking-wider transition-all duration-300 block px-8 py-4 border-b border-accent/20 hover:text-accent hover:bg-accent/5 cursor-pointer">
+          CONTATO
         </a>
       </li>
     </ul>

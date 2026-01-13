@@ -1,82 +1,41 @@
-/* Global Styles for Brivel Sport */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-:root {
-  --bg-dark: #0a0a0a;
-  --bg-darker: #000000;
-  --accent-orange: #ff4800;
-  --accent-orange-dark: #e04000;
-  --text-light: #ffffff;
-  --text-gray: #b0b0b0;
-  --text-dark: #707070;
-  --border-color: #1a1a1a;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
+@layer base {
+  * {
+    @apply box-border;
+  }
 
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: var(--bg-dark);
-  color: var(--text-light);
-  line-height: 1.6;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.01em;
-}
+  html {
+    @apply scroll-smooth;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
-}
+  body {
+    @apply bg-bg-dark text-white font-sans font-normal leading-relaxed antialiased;
+    letter-spacing: -0.01em;
+  }
 
-p {
-  margin-bottom: 1rem;
-}
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold leading-tight mb-4;
+    letter-spacing: -0.02em;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  p {
+    @apply mb-4;
+  }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
+  a {
+    @apply text-inherit no-underline;
+  }
 
-button {
-  font-family: inherit;
-  cursor: pointer;
-}
+  img {
+    @apply max-w-full h-auto block;
+  }
 
-/* Utility Classes */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+  button {
+    @apply cursor-pointer;
+  }
 }
