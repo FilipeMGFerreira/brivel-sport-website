@@ -1,25 +1,15 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/pages/home/home.component';
-import { ServicesComponent } from './components/pages/services/services.component';
-import { CarsComponent } from './components/pages/cars/cars.component';
-import { ContactComponent } from './components/pages/contact/contact.component';
+import { MainComponent } from './components/pages/main/main.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: MainComponent
   },
   {
-    path: 'services',
-    component: ServicesComponent
-  },
-  {
-    path: 'cars',
-    component: CarsComponent
-  },
-  {
-    path: 'contact',
-    component: ContactComponent
+    path: 'marketplace',
+    loadChildren: () =>
+      import('./features/marketplace/marketplace.module').then((m) => m.MarketplaceModule)
   },
   {
     path: '**',

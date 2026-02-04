@@ -10,19 +10,20 @@ import { CommonModule } from '@angular/common';
 export class ServicesComponent {
   services = [
     {
-      title: 'Assistência em Corridas',
-      description: 'Oferecemos suporte completo em pista durante competições e eventos. Nossa equipe técnica está sempre pronta para garantir que você tenha o melhor desempenho possível.',
+      title: 'Assistência Técnica',
+      description: 'Acompanhamento técnico completo em pista durante competições e eventos, assegurando fiabilidade e máximo desempenho.',
+      image: './assets/images/img8.jpeg'
+    },
+    {
+      title: 'Aluguer de Viaturas',
+      description: 'Viaturas de competição totalmente preparadas e prontas a utilizar.',
+      image: './assets/cars/car2/car2_4.JPG'
+    },
+    {
+      title: 'Preparação de Viaturas',
+      description: 'Serviços profissionais de setup, manutenção e optimização de performance para competição.',
       image: './assets/images/img3.jpg'
-    },
-    {
-      title: 'Aluguel de Carros',
-      description: 'Disponibilizamos carros de competição preparados e prontos para uso. Nossa frota de Honda Civic TypeR está sempre em perfeitas condições para suas corridas.',
-      image: './assets/images/img4.jpg'
-    },
-    {
-      title: 'Preparação de Carros',
-      description: 'Serviços completos de setup, manutenção e otimização de performance. Nossa equipe especializada garante que seu carro esteja no melhor estado possível.',
-      image: './assets/images/img5.jpeg'
     }
+    
   ];
 }

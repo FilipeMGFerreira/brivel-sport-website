@@ -1,0 +1,5 @@
+export enum ListingStatus {
+  AVAILABLE = 'AVAILABLE',
+  RESERVED = 'RESERVED',
+  UNAVAILABLE = 'UNAVAILABLE'
+}

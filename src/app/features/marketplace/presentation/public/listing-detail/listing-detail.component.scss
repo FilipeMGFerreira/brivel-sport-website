@@ -1,0 +1,626 @@
+@use '../../styles/marketplace-shared' as mkt;
+
+// ---------------------------------------------------------------------------
+// Design scale – consistent spacing and radius for image & info sides
+// ---------------------------------------------------------------------------
+$detail-space-xs: 0.5rem;
+$detail-space-sm: 0.75rem;
+$detail-space: 1rem;
+$detail-space-lg: 1.5rem;
+$detail-space-xl: 2rem;
+$detail-radius: 0.75rem;
+$detail-radius-sm: 0.5rem;
+
+:host {
+  display: block;
+}
+
+// ---------------------------------------------------------------------------
+// Page layout
+// ---------------------------------------------------------------------------
+.detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: $detail-space-xs;
+  color: var(--mkt-text-gray, #b0b0b0);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  margin-bottom: $detail-space-lg;
+  transition: color 0.2s ease;
+  &:hover {
+    color: mkt.$mkt-accent;
+  }
+}
+
+.detail-card {
+  background-color: mkt.$mkt-bg-darker;
+  border: 1px solid mkt.$mkt-border;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.detail-grid {
+  display: grid;
+  gap: $detail-space-xl;
+  padding: $detail-space-lg;
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    gap: $detail-space-xl;
+    padding: $detail-space-xl;
+    align-items: stretch;
+    min-height: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Gallery (no wrapper panel)
+// ---------------------------------------------------------------------------
+.detail-gallery {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  @media (min-width: 1024px) {
+    position: sticky;
+    top: $detail-space-lg;
+  }
+}
+
+.detail-main-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: $detail-radius-sm;
+  overflow: hidden;
+  background-color: mkt.$mkt-bg-darker;
+  margin-bottom: $detail-space-sm;
+  cursor: zoom-in;
+  border: 1px solid mkt.$mkt-border;
+  flex-shrink: 0;
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px mkt.$mkt-accent;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.detail-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $detail-space-xs;
+}
+
+.detail-thumb {
+  width: 3rem;
+  height: 3rem;
+  border-radius: $detail-radius-sm;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  flex-shrink: 0;
+  @media (min-width: 640px) {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &.active {
+    border-color: mkt.$mkt-accent;
+  }
+  &:not(.active) {
+    border-color: mkt.$mkt-border;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Info column – same scale as gallery panel
+// ---------------------------------------------------------------------------
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: $detail-space-sm;
+  min-height: 0;
+}
+
+.detail-header-block {
+  display: flex;
+  flex-direction: column;
+  gap: $detail-space-sm;
+  .detail-title {
+    margin: 0;
+  }
+}
+
+.detail-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $detail-space-xs;
+}
+
+.detail-pill {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  @media (min-width: 640px) {
+    font-size: 0.625rem;
+    padding: 0.1875rem 0.5rem;
+  }
+  &.pill-new {
+    background-color: #047857;
+    color: white;
+  }
+  &.pill-used {
+    background-color: #57534e;
+    color: #fafaf9;
+  }
+  &.pill-available {
+    background-color: mkt.$mkt-accent;
+    color: white;
+  }
+  &.pill-reserved {
+    background-color: #b45309;
+    color: white;
+  }
+  &.pill-unavailable {
+    background-color: #4b5563;
+    color: #e5e7eb;
+  }
+}
+
+.detail-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0;
+  @media (min-width: 640px) {
+    font-size: 1.125rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 1.25rem;
+  }
+}
+
+.detail-price {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: mkt.$mkt-accent;
+  margin: 0;
+  @media (min-width: 640px) {
+    font-size: 1.375rem;
+  }
+}
+
+.detail-meta {
+  font-size: 0.8125rem;
+  color: mkt.$mkt-text-gray;
+  margin: 0;
+}
+
+.detail-section {
+  padding: $detail-space-lg;
+  background-color: mkt.$mkt-bg-dark;
+  border: 1px solid mkt.$mkt-border;
+  border-radius: $detail-radius;
+}
+
+.detail-section-title {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: mkt.$mkt-text-gray;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 $detail-space-sm 0;
+  @media (min-width: 640px) {
+    font-size: 0.75rem;
+  }
+}
+
+.detail-section-content {
+  font-size: 0.8125rem;
+  color: mkt.$mkt-text-gray;
+  line-height: 1.6;
+  margin: 0;
+  &.pre-wrap {
+    white-space: pre-wrap;
+  }
+}
+
+.detail-details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $detail-space-xs;
+  font-size: 0.8125rem;
+  color: mkt.$mkt-text-gray;
+  line-height: 1.5;
+  li {
+    display: flex;
+    gap: $detail-space-xs;
+    span:first-child {
+      color: white;
+      min-width: 4.5rem;
+    }
+  }
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $detail-space-xs;
+}
+
+.detail-tag {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: rgba(mkt.$mkt-accent, 0.2);
+  color: mkt.$mkt-accent;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  &:hover {
+    background-color: mkt.$mkt-accent;
+    color: white;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Unified block: Detalhes, Tags, Description, Contact – same scale as gallery panel
+// ---------------------------------------------------------------------------
+.detail-content-block {
+  padding: $detail-space-lg;
+  background-color: mkt.$mkt-bg-dark;
+  border: 1px solid mkt.$mkt-border;
+  border-radius: $detail-radius;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  min-height: 0;
+}
+
+.detail-block-item {
+  padding-bottom: $detail-space-lg;
+  border-bottom: 1px solid mkt.$mkt-border;
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.detail-top-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $detail-space-sm;
+  .detail-meta-group {
+    .detail-block-title {
+      margin-bottom: $detail-space-xs;
+    }
+  }
+  .detail-meta {
+    margin: 0;
+  }
+  .detail-price {
+    margin: 0;
+    font-size: 1.375rem;
+    font-weight: 700;
+    text-align: right;
+    @media (min-width: 640px) {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.detail-block-title {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: mkt.$mkt-text-gray;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: $detail-space-sm 0 $detail-space-sm 0;
+  @media (min-width: 640px) {
+    font-size: 0.6875rem;
+  }
+}
+
+.detail-contact-inner {
+  padding-top: $detail-space-lg;
+  border-top: 2px solid mkt.$mkt-accent;
+  margin-top: 0;
+  &:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Contact block – emphasis (inside unified block)
+// ---------------------------------------------------------------------------
+.detail-contact-title {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 $detail-space-sm 0;
+  @media (min-width: 640px) {
+    font-size: 0.75rem;
+  }
+}
+
+.detail-contact-desc {
+  font-size: 0.8125rem;
+  color: mkt.$mkt-text-gray;
+  margin: 0 0 $detail-space 0;
+  line-height: 1.45;
+}
+
+.detail-contact-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: $detail-space-sm;
+  align-items: center;
+}
+
+.detail-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $detail-space-xs;
+  flex-shrink: 0;
+  svg {
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
+
+.detail-btn-email {
+  display: inline-flex;
+  align-items: center;
+  padding: $detail-space-sm $detail-space-lg;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: $detail-radius-sm;
+  background-color: mkt.$mkt-accent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  @media (min-width: 640px) {
+    padding: $detail-space $detail-space-lg;
+    font-size: 0.8125rem;
+  }
+  &:hover {
+    background-color: mkt.$mkt-accent-dark;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.detail-btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  padding: $detail-space-sm $detail-space-lg;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: $detail-radius-sm;
+  background: transparent;
+  color: #22c55e;
+  border: 1px solid #22c55e;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  @media (min-width: 640px) {
+    padding: $detail-space $detail-space-lg;
+    font-size: 0.8125rem;
+  }
+  &:hover {
+    background-color: #22c55e;
+    color: white;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.detail-contact-back {
+  font-size: 0.8125rem;
+  color: mkt.$mkt-text-gray;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: $detail-space-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  &:hover {
+    color: mkt.$mkt-accent;
+  }
+}
+
+.detail-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: $detail-space;
+}
+
+.detail-contact-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: $detail-space-xs;
+}
+
+.detail-contact-input,
+.detail-contact-textarea {
+  width: 100%;
+  padding: $detail-space-sm $detail-space;
+  font-size: 0.875rem;
+  color: white;
+  background-color: mkt.$mkt-bg-darker;
+  border: 1px solid mkt.$mkt-border;
+  border-radius: $detail-radius-sm;
+  &::placeholder {
+    color: mkt.$mkt-text-dark;
+  }
+  &:focus {
+    outline: none;
+    border-color: mkt.$mkt-accent;
+    box-shadow: 0 0 0 2px rgba(mkt.$mkt-accent, 0.2);
+  }
+  &.invalid {
+    border-color: #ef4444;
+  }
+}
+
+.detail-contact-textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+.detail-contact-error {
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin-top: $detail-space-xs;
+}
+
+.detail-contact-success {
+  font-size: 0.875rem;
+  color: #22c55e;
+  margin: 0 0 $detail-space-xs 0;
+  line-height: 1.45;
+}
+
+// ---------------------------------------------------------------------------
+// Contact modals – consistent with app (bg, border, radius)
+// ---------------------------------------------------------------------------
+.detail-modal-content {
+  padding: $detail-space-xl;
+  background-color: mkt.$mkt-bg-darker;
+  border: 1px solid mkt.$mkt-border;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.detail-modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  letter-spacing: 0.02em;
+  @media (min-width: 640px) {
+    font-size: 1.125rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Success modal – confirmation after email send (1.5s then redirect)
+// ---------------------------------------------------------------------------
+.success-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.85);
+  animation: successModalFadeIn 0.2s ease-out;
+}
+
+@keyframes successModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.success-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background-color: mkt.$mkt-bg-darker;
+  border: 1px solid mkt.$mkt-border;
+  border-radius: mkt.$mkt-radius;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.success-modal-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: mkt.$mkt-accent;
+  transform-origin: right center;
+  animation: successModalProgress 1.5s linear forwards;
+}
+
+@keyframes successModalProgress {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+.success-modal-body {
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.success-modal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background-color: rgba(mkt.$mkt-accent, 0.15);
+  color: mkt.$mkt-accent;
+}
+
+.success-modal-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+}
+
+.success-modal-message {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: mkt.$mkt-text-gray;
+}

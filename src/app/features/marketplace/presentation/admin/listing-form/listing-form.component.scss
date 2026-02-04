@@ -1,0 +1,9 @@
+@use '../../styles/marketplace-shared' as mkt;
+
+:host {
+  // Form uses shared mixins via Tailwind in template; add any custom overrides here
+  // e.g. validation border color
+  .mkt-input-invalid {
+    border-color: #ef4444;
+  }
+}

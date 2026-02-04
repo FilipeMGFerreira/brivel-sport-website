@@ -1,0 +1,14 @@
+# Supabase local config. Used by `supabase functions serve` and may affect deploy.
+# See: https://supabase.com/docs/guides/functions/function-configuration
+
+# Allow browser preflight OPTIONS (no JWT) to reach the function so CORS works from localhost/frontend.
+# The functions still rate-limit and validate input; they use service role inside the function.
+[functions.create-lead-whatsapp]
+verify_jwt = false
+
+[functions.create-lead-email]
+verify_jwt = false
+
+# email-reply-webhook is called by external providers (no browser JWT).
+[functions.email-reply-webhook]
+verify_jwt = false

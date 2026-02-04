@@ -13,5 +13,15 @@ export const appSettings = {
   },
   formspree: {
     formId: 'YOUR_FORMSPREE_FORM_ID'
+  },
+  googleAnalytics: {
+    measurementId: 'YOUR_GA4_MEASUREMENT_ID'
+  },
+  supabase: {
+    url: 'YOUR_SUPABASE_URL',
+    anonKey: 'YOUR_SUPABASE_ANON_KEY'
+  },
+  turnstile: {
+    siteKey: 'YOUR_TURNSTILE_SITE_KEY'
   }
 };

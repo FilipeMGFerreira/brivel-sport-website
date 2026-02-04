@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InstagramService, InstagramPost } from '../../../services/instagram.service';
+import { AnalyticsService } from '../../../services/analytics.service';
 
 @Component({
   selector: 'app-home',
@@ -13,18 +14,16 @@ export class HomeComponent implements OnInit {
   isLoadingPosts = false;
   
   heroImages = [
-    './assets/images/img1.jpg',
-    './assets/images/img2.jpg',
-    './assets/images/img3.jpg',
-    './assets/images/img4.jpg',
-    './assets/images/img5.jpeg',
-    './assets/images/img6.jpeg',
-    './assets/images/img7.jpeg',
-    './assets/images/img8.jpeg',
-    './assets/cars/car1/car1_1.jpg',
     './assets/cars/car1/car1_2.jpg',
-    './assets/cars/car2/car2_1.jpg',
-    './assets/cars/car3/car3_1.jpg'
+    './assets/images/img1.jpg',
+    './assets/cars/car2/car2_5.JPG',
+    './assets/images/img7.jpeg',
+    './assets/cars/car3/car3_5.jpeg',
+    './assets/images/img2.jpg',
+    './assets/cars/car1/car1_9.jpg',
+    './assets/cars/car2/car2_2.jpg',
+    './assets/images/img12.JPG',
+    './assets/cars/car3/car3_10.JPG'
   ];
 
   // Instagram posts - será populado via API
@@ -82,11 +81,16 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor(private instagramService: InstagramService) {}
+  constructor(
+    private instagramService: InstagramService,
+    private analyticsService: AnalyticsService
+  ) {}
 
   ngOnInit() {
     this.startHeroCarousel();
     this.loadInstagramPosts();
+    // Track initial page view
+    this.analyticsService.trackPageView('Home - Brivel Sport');
   }
 
   /**
@@ -99,17 +103,14 @@ export class HomeComponent implements OnInit {
     this.instagramService.getRecentPosts(6).subscribe({
       next: (posts: InstagramPost[]) => {
         if (posts && posts.length > 0) {
-          console.log(`✅ ${posts.length} posts do Instagram carregados com sucesso`);
           this.instagramPosts = posts;
         } else {
-          console.warn('⚠️ Nenhum post retornado da API. Usando posts de fallback.');
           // Usa posts de fallback se a API não retornar dados
           this.instagramPosts = this.fallbackPosts;
         }
         this.isLoadingPosts = false;
       },
       error: (error: any) => {
-        console.error('❌ Erro ao carregar posts do Instagram:', error);
         // Usa posts de fallback em caso de erro
         this.instagramPosts = this.fallbackPosts;
         this.isLoadingPosts = false;
@@ -131,6 +132,12 @@ export class HomeComponent implements OnInit {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Track navigation click
+      this.analyticsService.trackButtonClick(`hero_${sectionId}`, {
+        section: sectionId
+      });
+      // Track page view for section
+      this.analyticsService.trackPageView(`${sectionId} - Brivel Sport`, `#${sectionId}`);
     }
   }
 }

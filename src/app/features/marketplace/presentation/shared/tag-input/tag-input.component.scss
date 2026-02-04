@@ -1,0 +1,9 @@
+@use '../../styles/marketplace-shared' as mkt;
+
+:host {
+  display: block;
+}
+
+.tag-input-field::placeholder {
+  color: mkt.$mkt-text-dark;
+}

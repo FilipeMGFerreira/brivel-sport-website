@@ -1,0 +1,107 @@
+// Marketplace shared styles – variables and mixins for consistent theming.
+// Aligns with Tailwind theme (tailwind.config.js). Use in component SCSS via @use.
+
+// ---------------------------------------------------------------------------
+// Variables (mirror Tailwind theme for use in custom CSS / mixins)
+// ---------------------------------------------------------------------------
+$mkt-accent: #ff4800;
+$mkt-accent-dark: #e04000;
+$mkt-bg-dark: #0a0a0a;
+$mkt-bg-darker: #000000;
+$mkt-text-gray: #b0b0b0;
+$mkt-text-dark: #707070;
+$mkt-border: #1a1a1a;
+$mkt-radius: 0.75rem;   // rounded-xl
+$mkt-radius-sm: 0.5rem; // rounded-lg
+$mkt-transition: 0.3s ease;
+
+// ---------------------------------------------------------------------------
+// Mixins – reuse common patterns
+// ---------------------------------------------------------------------------
+
+/// Base for text inputs and selects (background, border, focus ring)
+@mixin mkt-input-base {
+  background-color: $mkt-bg-dark;
+  border: 1px solid $mkt-border;
+  border-radius: $mkt-radius-sm;
+  color: white;
+  transition: border-color $mkt-transition, box-shadow $mkt-transition;
+  &:focus {
+    outline: none;
+    border-color: $mkt-accent;
+    box-shadow: 0 0 0 2px rgba($mkt-accent, 0.2);
+  }
+}
+
+/// Card container (darker bg, border, radius)
+@mixin mkt-card {
+  background-color: $mkt-bg-darker;
+  border: 1px solid $mkt-border;
+  border-radius: $mkt-radius;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/// Primary accent button
+@mixin mkt-btn-primary {
+  background-color: $mkt-accent;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: $mkt-radius-sm;
+  transition: background-color $mkt-transition;
+  &:hover {
+    background-color: $mkt-accent-dark;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/// Secondary outline button (border accent)
+@mixin mkt-btn-outline {
+  background: transparent;
+  border: 1px solid $mkt-accent;
+  color: $mkt-accent;
+  border-radius: $mkt-radius-sm;
+  font-weight: 600;
+  transition: background-color $mkt-transition, color $mkt-transition;
+  &:hover {
+    background-color: $mkt-accent;
+    color: white;
+  }
+}
+
+/// Pill/badge (status, condition, tag)
+@mixin mkt-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/// Page layout wrapper (min-height, padding responsive)
+@mixin mkt-page-layout {
+  min-height: calc(100vh - 200px);
+  padding: 1rem 0.75rem;
+  @media (min-width: 640px) {
+    padding: 2rem 1rem;
+  }
+  @media (min-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
+}
+
+/// Section heading (uppercase, tracking)
+@mixin mkt-section-heading {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.375rem;
+}

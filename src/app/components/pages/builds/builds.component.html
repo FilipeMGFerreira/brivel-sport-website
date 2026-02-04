@@ -1,94 +1,166 @@
-<div class="min-h-[calc(100vh-200px)] py-20 px-6 bg-bg-dark">
-  <section id="builds" class="text-center mb-16 max-w-[800px] mx-auto">
-    <h1 class="text-5xl font-bold text-accent mb-4 uppercase tracking-wider">Nossos Builds</h1>
-    <p class="text-xl text-text-gray m-0">Carros de competição construídos e preparados pela equipe Brivel Sport</p>
+<div class="min-h-[calc(100vh-200px)] py-10 sm:py-16 md:py-20 px-4 sm:px-6 bg-bg-dark">
+  <section id="builds" class="text-center mb-8 sm:mb-12 md:mb-16 max-w-[800px] mx-auto">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-accent mb-3 sm:mb-4 uppercase tracking-wider px-2">Nossas Preparações</h1>
+    <p class="text-sm sm:text-base md:text-lg lg:text-xl text-text-gray m-0 px-2">Carros de competição construídos e preparados pela nossa equipa.</p>
   </section>
 
-  <section class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <section class="max-w-[1200px] mx-auto flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
     @for (build of builds; track build.id) {
-      <div class="bg-bg-darker rounded-3xl overflow-hidden border border-border hover:border-accent transition-all duration-300 hover:-translate-y-2 shadow-xl hover:shadow-2xl cursor-pointer"
-           (click)="selectBuild(build)">
-        <div class="relative w-full h-[350px] overflow-hidden bg-bg-dark">
+      <div class="bg-bg-darker rounded-2xl sm:rounded-3xl overflow-hidden border border-border hover:border-accent transition-all duration-300 hover:-translate-y-2 shadow-xl hover:shadow-2xl w-full sm:w-[calc(50%-12px)] md:w-[calc(50%-22px)] lg:w-[calc(33.333%-22px)] max-w-sm">
+        <div class="relative w-full h-[200px] sm:h-[280px] md:h-[350px] overflow-hidden bg-bg-dark cursor-pointer"
+             (click)="selectCarImages(build)">
           <img [src]="build.mainImage" 
                [alt]="build.name" 
                class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
         </div>
-        <div class="p-6">
-          <h3 class="text-accent text-xl font-bold mb-4 uppercase tracking-wide">{{ build.name }}</h3>
-          <div class="space-y-2">
-            <div class="flex items-center gap-2">
-              <span class="text-text-dark text-sm uppercase tracking-wide">Ano</span>
-              <span class="text-white font-semibold">{{ build.year }}</span>
+        <div class="p-4 sm:p-6 text-center">
+          <h3 class="text-accent text-lg sm:text-xl font-bold mb-3 sm:mb-4 uppercase tracking-wide">{{ build.name }}</h3>
+          <div class="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+            <div class="flex items-center justify-center gap-2">
+              <span class="text-text-dark text-xs sm:text-sm uppercase tracking-wide">Ano</span>
+              <span class="text-white font-semibold text-xs sm:text-sm">{{ build.year }}</span>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="text-text-dark text-sm uppercase tracking-wide">Proprietário</span>
-              <span class="text-white font-semibold">{{ build.owner }}</span>
+            <div class="flex items-center justify-center gap-2">
+              <span class="text-text-dark text-xs sm:text-sm uppercase tracking-wide">Proprietário</span>
+              <span class="text-white font-semibold text-xs sm:text-sm">{{ build.owner }}</span>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="text-text-dark text-sm uppercase tracking-wide">Campeonato</span>
-              <span class="text-white font-semibold">{{ build.championship }}</span>
+            <div class="flex items-center justify-center gap-2">
+              <span class="text-text-dark text-xs sm:text-sm uppercase tracking-wide">Campeonato</span>
+              <span class="text-white font-semibold text-xs sm:text-sm">{{ build.championship }}</span>
             </div>
           </div>
+          <button 
+            (click)="selectBuild(build)"
+            class="w-full px-3 sm:px-4 py-1.5 sm:py-2 bg-accent text-white font-semibold text-xs sm:text-sm uppercase tracking-wide rounded-lg sm:rounded-xl transition-all duration-300 hover:bg-accent-dark hover:-translate-y-1 shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+            fotos preparação 
+          </button>
         </div>
       </div>
     }
   </section>
 
-  <!-- Modal de Detalhes -->
-  @if (selectedBuild) {
+  <!-- Modal de Detalhes - Fotos da Construção -->
+  @if (selectedBuild && isBuildGallery) {
     <div class="fixed inset-0 z-[2000] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
          (click)="closeModal()">
-      <div class="bg-bg-darker rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-accent shadow-2xl"
+      <div class="bg-bg-darker rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto md:overflow-hidden border border-accent shadow-2xl scrollbar-hide md:scrollbar-hide"
            (click)="$event.stopPropagation()">
         <!-- Header do Modal -->
-        <div class="sticky top-0 bg-bg-darker border-b border-accent p-6 flex justify-between items-center z-10">
+        <div class="sticky top-0 bg-bg-darker border-b border-accent p-4 sm:p-6 flex justify-between items-center z-10">
           <div>
-            <h2 class="text-2xl font-bold text-accent mb-1 uppercase tracking-wide">{{ selectedBuild.name }}</h2>
+            <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-accent mb-1 uppercase tracking-wide">{{ selectedBuild.name }} - Fotos da Construção</h2>
           </div>
           <button (click)="closeModal()" 
-                  class="w-10 h-10 flex items-center justify-center bg-bg-dark hover:bg-accent rounded-full transition-colors duration-300">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-bg-dark hover:bg-accent rounded-full transition-colors duration-300">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
         </div>
 
-        <!-- Conteúdo do Modal - Apenas Galeria -->
-        <div class="p-6 md:p-10">
-          <div class="relative w-full h-[600px] rounded-2xl overflow-hidden bg-bg-dark mb-4">
-            <img [src]="selectedBuild.images[currentImageIndex]" 
+        <!-- Conteúdo do Modal - Galeria da Construção -->
+        <div class="p-4 sm:p-6 md:p-10">
+          <div class="relative w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-xl sm:rounded-2xl overflow-hidden bg-bg-dark mb-4 flex items-center justify-center">
+            <img [src]="selectedBuild.buildImages[currentImageIndex]" 
                  [alt]="selectedBuild.name" 
-                 class="w-full h-full object-cover" />
+                 class="max-w-full max-h-full object-contain" />
             
-            @if (selectedBuild.images.length > 1) {
+            @if (selectedBuild.buildImages.length > 1) {
               <button (click)="previousImage()" 
-                      class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-accent rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-12 md:h-12 bg-black/50 hover:bg-accent rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
               </button>
               <button (click)="nextImage()" 
-                      class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-accent rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-12 md:h-12 bg-black/50 hover:bg-accent rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
               </button>
             }
 
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full">
-              <span class="text-white text-sm font-semibold">{{ currentImageIndex + 1 }} / {{ selectedBuild.images.length }}</span>
+            <div class="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full">
+              <span class="text-white text-xs sm:text-sm font-semibold">{{ currentImageIndex + 1 }} / {{ selectedBuild.buildImages.length }}</span>
             </div>
           </div>
 
           <!-- Miniaturas -->
-          @if (selectedBuild.images.length > 1) {
-            <div class="flex gap-3 overflow-x-auto pb-2">
-              @for (image of selectedBuild.images; track image; let i = $index) {
+          @if (selectedBuild.buildImages.length > 1) {
+            <div class="flex gap-2 sm:gap-3 overflow-x-auto pb-2">
+              @for (image of selectedBuild.buildImages; track image; let i = $index) {
                 <button (click)="goToImage(i)"
-                        class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden border-2 transition-all duration-300"
+                        class="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all duration-300"
                         [class.border-accent]="i === currentImageIndex"
                         [class.border-border]="i !== currentImageIndex"
                         [class.opacity-50]="i !== currentImageIndex">
+                  <img [src]="image" 
+                       [alt]="'Imagem ' + (i + 1)" 
+                       class="w-full h-full object-cover" />
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Modal de Detalhes - Fotos do Carro -->
+  @if (selectedCarImages && !isBuildGallery) {
+    <div class="fixed inset-0 z-[2000] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+         (click)="closeModal()">
+      <div class="bg-bg-darker rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto md:overflow-hidden border border-accent shadow-2xl scrollbar-hide md:scrollbar-hide"
+           (click)="$event.stopPropagation()">
+        <!-- Header do Modal -->
+        <div class="sticky top-0 bg-bg-darker border-b border-accent p-4 sm:p-6 flex justify-between items-center z-10">
+          <div>
+            <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-accent mb-1 uppercase tracking-wide">{{ selectedCarImages.name }}</h2>
+          </div>
+          <button (click)="closeModal()" 
+                  class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-bg-dark hover:bg-accent rounded-full transition-colors duration-300">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Conteúdo do Modal - Galeria do Carro -->
+        <div class="p-4 sm:p-6 md:p-10">
+          <div class="relative w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-xl sm:rounded-2xl overflow-hidden bg-bg-dark mb-4 flex items-center justify-center">
+            <img [src]="selectedCarImages.images[currentCarImageIndex]" 
+                 [alt]="selectedCarImages.name" 
+                 class="max-w-full max-h-full object-contain" />
+            
+            @if (selectedCarImages.images.length > 1) {
+              <button (click)="previousImage()" 
+                      class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-12 md:h-12 bg-black/50 hover:bg-accent rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <button (click)="nextImage()" 
+                      class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-12 md:h-12 bg-black/50 hover:bg-accent rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            }
+
+            <div class="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full">
+              <span class="text-white text-xs sm:text-sm font-semibold">{{ currentCarImageIndex + 1 }} / {{ selectedCarImages.images.length }}</span>
+            </div>
+          </div>
+
+          <!-- Miniaturas -->
+          @if (selectedCarImages.images.length > 1) {
+            <div class="flex gap-2 sm:gap-3 overflow-x-auto pb-2">
+              @for (image of selectedCarImages.images; track image; let i = $index) {
+                <button (click)="goToImage(i)"
+                        class="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all duration-300"
+                        [class.border-accent]="i === currentCarImageIndex"
+                        [class.border-border]="i !== currentCarImageIndex"
+                        [class.opacity-50]="i !== currentCarImageIndex">
                   <img [src]="image" 
                        [alt]="'Imagem ' + (i + 1)" 
                        class="w-full h-full object-cover" />

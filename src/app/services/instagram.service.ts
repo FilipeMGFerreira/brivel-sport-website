@@ -57,15 +57,11 @@ export class InstagramService {
       { params }
     ).pipe(
       map(response => {
-        console.log('Instagram User ID obtido:', response.id);
-        console.log('Instagram Username:', response.username);
         // Salva o User ID na propriedade para melhor performance nas próximas chamadas
         this.INSTAGRAM_USER_ID = response.id;
-        console.log('💡 Dica: Para melhor performance, atualize INSTAGRAM_USER_ID no código com:', response.id);
         return response.id;
       }),
       catchError(error => {
-        console.error('Error fetching Instagram User ID:', error);
         return of(null);
       })
     );
@@ -128,38 +124,13 @@ export class InstagramService {
     ).pipe(
       map(response => {
         if (!response || !response.data) {
-          console.warn('⚠️ Resposta da API sem dados:', response);
           return [];
         }
 
-        console.log(`✅ ${response.data.length} posts recebidos da API`);
         const transformedPosts = this.transformPosts(response.data);
-        console.log(`✅ ${transformedPosts.length} posts processados e prontos para exibição`);
-        
         return transformedPosts;
       }),
       catchError(error => {
-        console.error('❌ Erro ao buscar posts do Instagram:', error);
-        
-        if (error.error?.error) {
-          const apiError = error.error.error;
-          console.error('📋 Detalhes do erro da API:', {
-            message: apiError.message,
-            type: apiError.type,
-            code: apiError.code,
-            error_subcode: apiError.error_subcode
-          });
-
-          // Mensagens de erro mais amigáveis
-          if (apiError.code === 190) {
-            console.error('🔑 Token de acesso inválido ou expirado. Gere um novo token.');
-          } else if (apiError.code === 100) {
-            console.error('👤 User ID não encontrado ou sem permissão.');
-          } else if (apiError.code === 10) {
-            console.error('🔒 Permissão negada. Verifique as permissões do app.');
-          }
-        }
-        
         return of([]);
       })
     );
@@ -170,7 +141,6 @@ export class InstagramService {
    */
   private transformPosts(posts: InstagramApiResponse['data']): InstagramPost[] {
     if (!posts || !Array.isArray(posts) || posts.length === 0) {
-      console.warn('⚠️ Nenhum post recebido para transformar');
       return [];
     }
 
@@ -180,12 +150,6 @@ export class InstagramService {
         const isValidType = post.media_type === 'IMAGE' || post.media_type === 'CAROUSEL_ALBUM';
         // Valida se tem URL de mídia
         const hasMediaUrl = post.media_url && post.media_url.trim() !== '';
-        
-        if (!isValidType) {
-          console.debug(`⏭️ Post ${post.id} ignorado (tipo: ${post.media_type})`);
-        } else if (!hasMediaUrl) {
-          console.warn(`⚠️ Post ${post.id} sem URL de mídia`);
-        }
         
         return isValidType && hasMediaUrl;
       })

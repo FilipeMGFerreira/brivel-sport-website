@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { appSettings } from '../../../appsettings';
+import { AnalyticsService } from '../../../services/analytics.service';
 
 @Component({
   selector: 'app-contact',
@@ -19,7 +20,8 @@ export class ContactComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private analyticsService: AnalyticsService
   ) {}
 
   ngOnInit() {
@@ -63,6 +65,8 @@ export class ContactComponent implements OnInit {
         this.submitSuccess = true;
         this.isSubmitting = false;
         this.contactForm.reset();
+        // Track successful form submission
+        this.analyticsService.trackFormSubmit('contact', true);
         setTimeout(() => {
           this.submitSuccess = false;
         }, 5000);
@@ -71,7 +75,8 @@ export class ContactComponent implements OnInit {
         this.submitError = true;
         this.errorMessage = 'Erro ao enviar mensagem. Por favor, tente novamente ou entre em contato diretamente por email.';
         this.isSubmitting = false;
-        console.error('Erro ao enviar formulário:', error);
+        // Track form error
+        this.analyticsService.trackFormSubmit('contact', false);
       }
     });
   }
